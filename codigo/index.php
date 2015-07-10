@@ -1,36 +1,25 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<link rel="icon" href="../../favicon.ico">
-		<meta charset="utf-8">		
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
 		<title>Compra en línea</title>
-		
-		<link href="/css/bootstrap.min.js" rel="stylesheet">
+		<link href="css/v1.css" rel="stylesheet">
 	</head>
 	<body>
-		<div class="container"><!-- Contenedor principal -->
+		<div class="contenedor">
+			<h1 class="header-title">Compras en línea</h1>
+			<p class="header-subtitle">El sitio donde comprar es más fácil.</p>
+		</div>
 		
-			<!-- Cabecera de la página -->
-			<div class="header clearfix">
-			<!-- Navegador -->
-				<nav>
-					<ul class="nav nav-pills pull-right">
-						<li role="presentation" class="active"><a href="#">Página principal</a></li>
-					</ul>
-				</nav>
-			<!-- /Navegador -->
-			
-			<h3 class="text-muted">Compra en línea</h3>
-			</div>
-			<!-- /Cabecera de la página -->
-			
-			
-			
-		</div><!-- /Contenedor principal -->
+		<div class="contenedor white-box">
+			<p class="login-title">Iniciar sesión</p>
+			<p>Para poder acceder al sitio, deberás crear una cuenta o iniciar sesión si ya tienes una.</p>
+			<form class="login-form" method="post" action="security_check.php">
+				<label class="login-label" for="username">Nombre de usuario:</label>
+				<input type="text" name="username" class="login-input" placeholder="usuario..." required><br>
+				<label class="login-label" for="password">Contraseña:</label>
+				<input type="text" name="password" class="login-input" placeholder="contraseña" required><br>
+				<input type="submit" value="Iniciar sesión" class="login-input">
+			</form>
+		</div>
 	</body>
 </html>

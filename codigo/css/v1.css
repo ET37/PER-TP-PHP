@@ -1,0 +1,54 @@
+body {
+	font-family: Arial;
+	font-size: 12px;
+	color: #000000;
+	background-color: #EFF0EA;
+}
+
+.contenedor {
+	margin: auto;
+	width: 800px;
+	padding: 10px;
+}
+
+.white-box {
+	background-color: #FFFFFF;
+	border: 1px solid #D8D9D6;
+	border-radius: 7px;
+}
+
+/**** Header ****/
+.header-title {
+	font-size: 28px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.header-subtitle {
+	font-size: 16px;
+	text-align: center;
+}
+
+/**** Login ****/
+.login-title {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.login-form {
+	width: 300px;
+	margin: 0 auto;
+}
+
+.login-label, .login-input {
+	display: inline-block;
+}
+
+.login-label {
+	width: 100%;
+}
+
+.login-input {
+	margin-top: 10px;
+	width: 100%;
+}
