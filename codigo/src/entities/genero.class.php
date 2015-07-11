@@ -25,5 +25,11 @@ class Genero {
 		if(property_exists($property))
 			return $this->$property;
 	}
+	
+	public function __set($property, $value) {
+		if(property_exists($property))
+			$this->$property = $value;
+		return $this->$property;
+	}
 }
 ?>
