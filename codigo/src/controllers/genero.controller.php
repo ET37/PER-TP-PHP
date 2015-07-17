@@ -13,7 +13,7 @@
 * tipo de dato, por lo que en vez de usar un arraylist, usamos simplemente
 * un array.
 */
-require_once '/entities/genero.class.php';
+require_once ENTITIES . 'genero.class.php';
 
 class generoController {
 	private $generos;		//Este será el array que va a guardar los géneros, y al que consultaremos en los métodos
@@ -60,6 +60,70 @@ class generoController {
 	}
 
 	/**
+	* Cuenta la cantidad de ítems que tiene el array de géneros.
+	*/
+	public function countGeneros() {
+		return sizeof($this->generos);
+	}
+	
+	/**
+	* Simplemente devuelve el array con los géneros. Esto sirve para, por ejemplo,
+	* listar todos los géneros que hay en una tabla.
+	*/
+	public function getAllGeneros() {
+		return $this->generos;
+	}
+	
+	public function borrarGenero($id) {
+		try {
+			if(empty($this->connection) || !is_object($this->connection))
+				throw new Exception("No hay una conexión establecida.");
+			
+			//Me fijo si el género ya existe
+			if(!is_null($this->getGeneroById($id))) {
+				//Ejecuto el insert para agregarlo a la base
+				$query = $this->connection->prepare("DELETE FROM generos WHERE id_genero=:idgenero");
+				$query->bindParam(':idgenero', $id, PDO::PARAM_STR);
+				$query->execute();
+				return 'SUCCESS';
+			}else{
+				return 'ERROR_INEXISTENTE';
+			}
+			
+		} catch(PDOException $e) {
+			new error($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine(), true);
+		} catch(Exception $e) {
+			new error($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine(), true);
+		}
+	}
+	
+	/**
+	* Tengo mis dudas de si va acá y si es correcto como lo hago, pero básicamente
+	* este método agrega un género a la base de datos.
+	*/
+	public function addGeneroToDB($nombre) {
+		try {
+			if(empty($this->connection) || !is_object($this->connection))
+				throw new Exception("No hay una conexión establecida.");
+			
+			//Me fijo si el género ya existe
+			if(is_null($this->getGeneroByNombre($nombre))) {
+				//Ejecuto el insert para agregarlo a la base
+				$query = $this->connection->prepare("INSERT INTO generos (nombre) VALUES (:nombre)");
+				$query->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+				$query->execute();
+				return 'SUCCESS';
+			}else{
+				return 'ERROR_EXISTENTE';
+			}
+			
+		} catch(PDOException $e) {
+			new error($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine(), true);
+		} catch(Exception $e) {
+			new error($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine(), true);
+		}
+	}
+	/**
 	* Devuelve un objeto genero si encuentra uno por el ID pasado por parámetro
 	*/
 	public function getGeneroById($id) {
@@ -75,7 +139,7 @@ class generoController {
 			*/
 			foreach ($this->generos as $genero) {
 				if(is_object($genero)) {
-					if($genero->__get("id_genero"))
+					if($genero->__get("id_genero") == $id)
 						return $genero;
 				}else{
 					throw new Exception("Un campo del array no es un objeto");
@@ -103,7 +167,7 @@ class generoController {
 			*/
 			foreach ($this->generos as $genero) {
 				if(is_object($genero)) {
-					if($genero->__get("nombre"))
+					if($genero->__get("nombre") == $nombre)
 						return $genero;
 				}else{
 					throw new Exception("Un campo del array no es un objeto");

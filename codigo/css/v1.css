@@ -9,6 +9,7 @@ body {
 	margin: auto;
 	width: 800px;
 	padding: 10px;
+	margin-bottom: 10px;
 }
 
 .white-box {
@@ -30,7 +31,7 @@ body {
 }
 
 /**** Login ****/
-.login-title {
+.login-title, .title {
 	font-size: 18px;
 	font-weight: bold;
 }

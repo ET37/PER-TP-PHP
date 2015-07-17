@@ -20,10 +20,10 @@ class error {
 	* Para obtener un ejemplo de los métodos que tiene un objeto de excepción, podemos revisar
 	* el siguiente link: http://php.net/manual/es/language.exceptions.php#91159
 	*/
-	public function __construct($message, $code, $file, $line, $critical = $self::$critical_default) {
+	public function __construct($message, $code, $file, $line, $critical) {
 		if(self::$enable_log_writing)
 			$this->writeLogEntry($message, $code, $file, $line);
-		if($critical)
+		if($critical || (self::$critical_default && is_null($critical) || !isset($critical)))
 			$this->writeErrorPage($message);
 	}
 	
@@ -33,7 +33,7 @@ class error {
 	* se muestren nombres de los archivos del sistema, etc
 	*/
 	private function writeErrorPage($message) {
-		echo '<h3>Ha ocurrido un error</h3><br><br>' . $message . '<br>Lamentamos las molestias. ';
+		echo '<center><h3>Ha ocurrido un error</h3>' . $message . '<br>Lamentamos las molestias. </center>';
 		if(self::$enable_log_writing) echo 'Se ha enviado un informe y el equipo lo leerá en breve.';
 	}
 	
@@ -46,7 +46,7 @@ class error {
 		try {
 			$logMessage = '[' . date('d/m/Y H:i:s') . '] Cód ' . $code . ' en ' . $file . ' línea ' . $line . ' - ' . $message . PHP_EOL;
 			file_put_contents(self::log_filename, $logMessage, FILE_APPEND);
-		} catch(Exception) {
+		} catch(Exception $e) {
 			die('Esto es el colmo. Intenta más tarde...');
 		}
 	}

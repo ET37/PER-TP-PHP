@@ -10,10 +10,10 @@
 * @date		10/07/2015
 */
 class mysql {
-	private $hostname;
-	private $username;
-	private $password;
-	private $database;
+	private $hostname = 'localhost';
+	private $username = 'prueba';
+	private $password = '1234';
+	private $database = 'tportega';
 
 	private $link;
 	

@@ -28,12 +28,12 @@ class Album {
 	* Encapsulamiento de las variables de la entidad. ¡Es tan fácil en PHP!
 	*/
 	public function __get($property) {
-		if(property_exists($property)) 
+		if(property_exists($this, $property)) 
 			return $this->$property;
 	}
 	
 	public function __set($property, $value) {
-		if(property_exists($property))
+		if(property_exists($this, $property))
 			$this->$property = $value;
 		return $this->$property;
 	}
